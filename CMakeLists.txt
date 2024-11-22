@@ -14,8 +14,15 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
+FetchContent_Declare(
+libremidi
+GIT_REPOSITORY https://github.com/celtera/libremidi
+GIT_TAG        v4.5.0
+)
+FetchContent_MakeAvailable(libremidi)
+
 add_executable(main src/main.cpp)
-target_link_libraries(main PRIVATE sfml-graphics)
+target_link_libraries(main PRIVATE sfml-graphics libremidi)
 target_compile_features(main PRIVATE cxx_std_17)
 
 if(WIN32)

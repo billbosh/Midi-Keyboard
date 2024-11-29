@@ -2,7 +2,7 @@
 
 Use ableton live style key-bindings to send midi messages.
 
-Build and open with:
+Build and open for MacOS with:
 
 ```
 cmake -B build

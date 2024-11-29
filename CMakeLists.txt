@@ -21,14 +21,20 @@ GIT_TAG        v4.5.0
 )
 FetchContent_MakeAvailable(libremidi)
 
-add_executable(main src/main.cpp)
-target_link_libraries(main PRIVATE sfml-graphics libremidi)
-target_compile_features(main PRIVATE cxx_std_17)
+include_directories(include)
+
+add_executable(midi-keyboard 
+    src/main.cpp
+    src/midi_out.cpp
+    src/midi.cpp
+    src/arpeggiator.cpp)
+target_link_libraries(midi-keyboard PRIVATE sfml-graphics libremidi)
+target_compile_features(midi-keyboard PRIVATE cxx_std_17)
 
 if(WIN32)
     add_custom_command(
         TARGET main
         COMMENT "Copy OpenAL DLL"
-        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:main>
+        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:midi-keyboard>
         VERBATIM)
 endif()
